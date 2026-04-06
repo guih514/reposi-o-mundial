@@ -3,116 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mundial - Reposição</title>
-    
-    <!-- Configurações de App -->
+    <title>Mundial Reposição</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#F58220">
-
     <style>
-        :root {
-            --laranja: #F58220;
-            --azul: #005BAA;
-            --verde: #39BC3E;
-            --vermelho: #E12D2D;
-        }
-
-        body { 
-            font-family: -apple-system, system-ui, sans-serif; 
-            background: #f0f2f5; margin: 0; padding: 10px;
-            touch-action: manipulation;
-        }
-
-        .header {
-            background: var(--laranja);
-            color: white; padding: 20px; text-align: center;
-            border-radius: 0 0 20px 20px; margin: -10px -10px 15px -10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        #busca {
-            width: 100%; padding: 15px; border: 2px solid #ddd;
-            border-radius: 12px; font-size: 16px; margin: 10px 0;
-            box-sizing: border-box; outline: none;
-        }
-
-        .produto-card { 
-            background: white; border-radius: 15px; padding: 12px;
-            margin-bottom: 12px; display: flex; flex-direction: column;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border-left: 6px solid var(--azul);
-        }
-
-        .info { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
-        
-        .img-box {
-            width: 80px; height: 80px; min-width: 80px;
-            background: white; border-radius: 10px; border: 1px solid #eee;
-            display: flex; align-items: center; justify-content: center;
-        }
+        :root { --laranja: #F58220; --azul: #005BAA; --verde: #39BC3E; --vermelho: #E12D2D; }
+        body { font-family: sans-serif; background: #f0f2f5; margin: 0; padding: 10px; }
+        .header { background: var(--laranja); color: white; padding: 15px; text-align: center; border-radius: 0 0 15px 15px; margin: -10px -10px 15px -10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        #busca { width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 12px; margin-bottom: 15px; box-sizing: border-box; font-size: 16px; outline: none; }
+        .produto-card { background: white; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; flex-direction: column; border-left: 6px solid var(--azul); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .info { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .img-box { width: 80px; height: 80px; min-width: 80px; background: white; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
         .img-box img { max-width: 90%; max-height: 90%; object-fit: contain; }
-        
         .detalhes h3 { margin: 0; font-size: 14px; color: #111; text-transform: uppercase; }
-        .specs { font-size: 11px; color: #666; margin-top: 5px; }
-
-        .calc-area {
-            background: #fff9f4; border: 1px solid #ffe0b2;
-            padding: 12px; border-radius: 10px;
-        }
-        
+        .specs { font-size: 11px; color: #666; margin-top: 5px; font-weight: bold; }
+        .calc-area { background: #fff9f4; padding: 10px; border-radius: 10px; border: 1px solid #ffe0b2; }
         .input-group { display: flex; gap: 8px; }
-        
-        input[type="number"] {
-            flex: 1; padding: 12px; border: 1px solid #ccc;
-            border-radius: 8px; font-size: 18px; text-align: center;
-        }
-
-        button {
-            background: var(--verde); color: white; border: none;
-            padding: 0 20px; border-radius: 8px; font-weight: bold;
-            cursor: pointer;
-        }
-
-        .resultado { 
-            text-align: center; font-weight: bold; font-size: 14px; 
-            margin-top: 10px; min-height: 20px;
-        }
+        input[type="number"] { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 18px; text-align: center; }
+        button { background: var(--verde); color: white; border: none; padding: 0 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .res { text-align: center; font-weight: bold; margin-top: 10px; min-height: 1.2em; font-size: 14px; }
     </style>
 </head>
 <body>
-
     <div class="header">
         <h2 style="margin:0">🛒 Mundial Reposição</h2>
         <small>Toque em OK após digitar a quantidade</small>
     </div>
-
     <input type="text" id="busca" placeholder="🔍 Buscar produto..." onkeyup="filtrar()">
-
     <div id="lista"></div>
 
     <script>
-        // SEUS DADOS ATUALIZADOS (Removido os ícones de redes sociais)
+        // LISTA DE PRODUTOS (Com a Azeitona corrigida: 12 un)
         const produtos = [
+            { "nome": "Azeitona Preta VALE FÉRTIL Azapa 360g", "cx": 12, "max": 48, "img": "https://mundial-api.supermercadosmundial.com.br/products/010317/300x300.webp" },
             { "nome": "ALHO TRITURADO OKKER 1KG", "cx": 6, "max": 18, "img": "https://mundial-api.supermercadosmundial.com.br/products/070359/300x300.webp" },
             { "nome": "ARROZ TIO MINGOTE BRANCO 5 KG", "cx": 6, "max": 60, "img": "https://mundial-api.supermercadosmundial.com.br/products/060864/300x300.webp" },
             { "nome": "CEREAL SNOW FLAKES", "cx": 12, "max": 24, "img": "https://mundial-api.supermercadosmundial.com.br/products/070308/300x300.webp" },
-            { "nome": "Azeitonas Pretas VALE FÉRTIL 160g/200g", "cx": 12, "max": 48, "img": "https://mundial-api.supermercadosmundial.com.br/products/044554/300x300.webp" },
             { "nome": "AZEITE DE DENDE CEPERA VD 200ML", "cx": 12, "max": 36, "img": "https://mundial-api.supermercadosmundial.com.br/products/069785/300x300.webp" },
             { "nome": "ÓLEO DE GIRASSOL SINHÁ 900ML", "cx": 20, "max": 100, "img": "https://mundial-api.supermercadosmundial.com.br/products/021893/300x300.webp" },
             { "nome": "AVEIA QUAKER FLOCOS FINOS 450G", "cx": 12, "max": 48, "img": "https://mundial-api.supermercadosmundial.com.br/products/062721/300x300.webp" },
-            { "nome": "Alcaparras VALE FÉRTIL Vidro 60g", "cx": 12, "max": 24, "img": "https://mundial-api.supermercadosmundial.com.br/products/060455/300x300.webp" },
             { "nome": "Maionese HEMMER Receita Caseira 500g", "cx": 12, "max": 36, "img": "https://mundial-api.supermercadosmundial.com.br/products/075035/300x300.webp" },
-            { "nome": "GRÃO-DE-BICO GRANFINO 500G", "cx": 10, "max": 40, "img": "https://mundial-api.supermercadosmundial.com.br/products/011848/300x300.webp" },
             { "nome": "LENTILHA VAPZA 250G", "cx": 12, "max": 36, "img": "https://mundial-api.supermercadosmundial.com.br/products/059923/300x300.webp" },
-            { "nome": "Leite de Coco COPRA 500ml", "cx": 12, "max": 48, "img": "https://mundial-api.supermercadosmundial.com.br/products/068474/300x300.webp" },
-            { "nome": "FEIJÃO VERMELHO D´NUVA 1 KG", "cx": 10, "max": 50, "img": "https://mundial-api.supermercadosmundial.com.br/products/065593/300x300.webp" },
             { "nome": "LEITE COND. MOÇA LATA 395G", "cx": 24, "max": 96, "img": "https://mundial-api.supermercadosmundial.com.br/products/071738/300x300.webp" },
-            { "nome": "ATUM RALADO COQUEIRO 170G", "cx": 24, "max": 96, "img": "https://mundial-api.supermercadosmundial.com.br/products/021370/300x300.webp" },
-            { "nome": "Lentilha GRANFINO 500g", "cx": 10, "max": 40, "img": "https://mundial-api.supermercadosmundial.com.br/products/011847/300x300.webp" },
-            { "nome": "Leite de Coco SOCOCO 200ml", "cx": 24, "max": 72, "img": "https://mundial-api.supermercadosmundial.com.br/products/004665/300x300.webp" },
-            { "nome": "COCO RALADO SOCOCO 100G", "cx": 24, "max": 48, "img": "https://mundial-api.supermercadosmundial.com.br/products/017304/300x300.webp" },
-            { "nome": "Azeitona Preta VALE FÉRTIL Azapa 360g",  "cx": 12,  "max": 48, // Ajusta conforme o tamanho da tua prateleira "img": "https://mundial-api.supermercadosmundial.com.br/products/010317/300x300.webp" }
+            { "nome": "ATUM RALADO COQUEIRO 170G", "cx": 24, "max": 96, "img": "https://mundial-api.supermercadosmundial.com.br/products/021370/300x300.webp" }
         ];
 
         function carregar(itens) {
@@ -125,15 +58,15 @@
                             <div class="img-box"><img src="${p.img}"></div>
                             <div class="detalhes">
                                 <h3>${p.nome}</h3>
-                                <div class="specs">Cx: ${p.cx} un | Max: ${p.max} un</div>
+                                <div class="specs">CX: ${p.cx} un | MAX: ${p.max} un</div>
                             </div>
                         </div>
                         <div class="calc-area">
                             <div class="input-group">
-                                <input type="number" id="in-${p.nome}" placeholder="Tem quanto?" inputmode="numeric">
+                                <input type="number" id="in-${p.nome}" placeholder="Qtd na gôndola" inputmode="numeric">
                                 <button onclick="calc('${p.nome}', ${p.max}, ${p.cx})">OK</button>
                             </div>
-                            <div id="res-${p.nome}" class="resultado"></div>
+                            <div id="res-${p.nome}" class="res"></div>
                         </div>
                     </div>`;
             });
@@ -144,23 +77,24 @@
             carregar(produtos.filter(p => p.nome.toLowerCase().includes(t)));
         }
 
-        function calc(id, max, cx) {
-            const input = document.getElementById(`in-${id}`);
-            const res = document.getElementById(`res-${id}`);
-            const atual = parseInt(input.value);
-            if (isNaN(atual)) return;
+        function calc(nome, max, cx) {
+            const input = document.getElementById(`in-${nome}`);
+            const q = parseInt(input.value);
+            const r = document.getElementById(`res-${nome}`);
+            if(isNaN(q)) return;
             input.blur();
 
-            const falta = max - atual;
-            if (falta <= 0) {
-                res.innerHTML = "<span style='color:var(--verde)'>CHEIO! ✅</span>";
+            const f = max - q;
+            if(f <= 0) {
+                r.innerHTML = "<span style='color:var(--verde)'>CHEIO! ✅</span>";
             } else {
-                const caixas = Math.floor(falta / cx);
-                const avulsos = falta % cx;
-                res.innerHTML = `<span style='color:var(--vermelho)'>PEGAR: ${caixas} CX e ${avulsos} UN</span>`;
+                const cxf = Math.floor(f/cx);
+                const av = f % cx;
+                r.innerHTML = `<span style='color:var(--vermelho)'>PEGAR: ${cxf} CX e ${av} UN</span>`;
             }
         }
 
+        // Inicia o app
         carregar(produtos);
     </script>
 </body>
