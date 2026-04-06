@@ -3,32 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mundial - Repositor Pro</title>
+    <title>Mundial - Reposição</title>
+    
+    <!-- Configurações de App -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#F58220">
+
     <style>
-        :root { --laranja: #F58220; --azul: #005BAA; --verde: #39BC3E; --vermelho: #E12D2D; }
-        body { font-family: sans-serif; background: #f4f4f4; margin: 0; padding: 10px; }
-        .header { background: var(--laranja); color: white; padding: 15px; text-align: center; border-radius: 0 0 15px 15px; margin: -10px -10px 15px -10px; }
-        #busca { width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 12px; margin-bottom: 15px; box-sizing: border-box; }
-        .produto-card { background: white; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; flex-direction: column; border-left: 6px solid var(--azul); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .info { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-        .img-box { width: 80px; height: 80px; min-width: 80px; background: white; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; border-radius: 8px; }
+        :root {
+            --laranja: #F58220;
+            --azul: #005BAA;
+            --verde: #39BC3E;
+            --vermelho: #E12D2D;
+        }
+
+        body { 
+            font-family: -apple-system, system-ui, sans-serif; 
+            background: #f0f2f5; margin: 0; padding: 10px;
+            touch-action: manipulation;
+        }
+
+        .header {
+            background: var(--laranja);
+            color: white; padding: 20px; text-align: center;
+            border-radius: 0 0 20px 20px; margin: -10px -10px 15px -10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #busca {
+            width: 100%; padding: 15px; border: 2px solid #ddd;
+            border-radius: 12px; font-size: 16px; margin: 10px 0;
+            box-sizing: border-box; outline: none;
+        }
+
+        .produto-card { 
+            background: white; border-radius: 15px; padding: 12px;
+            margin-bottom: 12px; display: flex; flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 6px solid var(--azul);
+        }
+
+        .info { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
+        
+        .img-box {
+            width: 80px; height: 80px; min-width: 80px;
+            background: white; border-radius: 10px; border: 1px solid #eee;
+            display: flex; align-items: center; justify-content: center;
+        }
         .img-box img { max-width: 90%; max-height: 90%; object-fit: contain; }
-        .calc-area { background: #fff9f4; padding: 10px; border-radius: 10px; border: 1px solid #ffe0b2; }
+        
+        .detalhes h3 { margin: 0; font-size: 14px; color: #111; text-transform: uppercase; }
+        .specs { font-size: 11px; color: #666; margin-top: 5px; }
+
+        .calc-area {
+            background: #fff9f4; border: 1px solid #ffe0b2;
+            padding: 12px; border-radius: 10px;
+        }
+        
         .input-group { display: flex; gap: 8px; }
-        input[type="number"] { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 18px; text-align: center; }
-        button { background: var(--verde); color: white; border: none; padding: 0 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .res { text-align: center; font-weight: bold; margin-top: 10px; min-height: 1.2em; font-size: 14px; }
+        
+        input[type="number"] {
+            flex: 1; padding: 12px; border: 1px solid #ccc;
+            border-radius: 8px; font-size: 18px; text-align: center;
+        }
+
+        button {
+            background: var(--verde); color: white; border: none;
+            padding: 0 20px; border-radius: 8px; font-weight: bold;
+            cursor: pointer;
+        }
+
+        .resultado { 
+            text-align: center; font-weight: bold; font-size: 14px; 
+            margin-top: 10px; min-height: 20px;
+        }
     </style>
 </head>
 <body>
-    <div class="header"><h2>🛒 Mundial Reposição</h2></div>
+
+    <div class="header">
+        <h2 style="margin:0">🛒 Mundial Reposição</h2>
+        <small>Toque em OK após digitar a quantidade</small>
+    </div>
+
     <input type="text" id="busca" placeholder="🔍 Buscar produto..." onkeyup="filtrar()">
+
     <div id="lista"></div>
 
     <script>
+        // SEUS DADOS ATUALIZADOS (Removido os ícones de redes sociais)
         const produtos = [
             { "nome": "ALHO TRITURADO OKKER 1KG", "cx": 6, "max": 18, "img": "https://mundial-api.supermercadosmundial.com.br/products/070359/300x300.webp" },
             { "nome": "ARROZ TIO MINGOTE BRANCO 5 KG", "cx": 6, "max": 60, "img": "https://mundial-api.supermercadosmundial.com.br/products/060864/300x300.webp" },
@@ -60,34 +124,42 @@
                             <div class="img-box"><img src="${p.img}"></div>
                             <div class="detalhes">
                                 <h3>${p.nome}</h3>
-                                <p style="font-size:11px; color:#666">Cx: ${p.cx} un | Max: ${p.max} un</p>
+                                <div class="specs">Cx: ${p.cx} un | Max: ${p.max} un</div>
                             </div>
                         </div>
                         <div class="calc-area">
                             <div class="input-group">
-                                <input type="number" id="in-${p.nome}" placeholder="Qtd na gôndola" inputmode="numeric">
+                                <input type="number" id="in-${p.nome}" placeholder="Tem quanto?" inputmode="numeric">
                                 <button onclick="calc('${p.nome}', ${p.max}, ${p.cx})">OK</button>
                             </div>
-                            <div id="res-${p.nome}" class="res"></div>
+                            <div id="res-${p.nome}" class="resultado"></div>
                         </div>
                     </div>`;
             });
         }
+
         function filtrar() {
             const t = document.getElementById('busca').value.toLowerCase();
             carregar(produtos.filter(p => p.nome.toLowerCase().includes(t)));
         }
-        function calc(nome, max, cx) {
-            const q = parseInt(document.getElementById(`in-${nome}`).value);
-            const r = document.getElementById(`res-${nome}`);
-            if(isNaN(q)) return;
-            const f = max - q;
-            if(f <= 0) { r.innerHTML = "<span style='color:green'>CHEIO! ✅</span>"; }
-            else { 
-                const cxf = Math.floor(f/cx); const av = f % cx;
-                r.innerHTML = `<span style='color:red'>PEGAR: ${cxf} CX e ${av} UN</span>`;
+
+        function calc(id, max, cx) {
+            const input = document.getElementById(`in-${id}`);
+            const res = document.getElementById(`res-${id}`);
+            const atual = parseInt(input.value);
+            if (isNaN(atual)) return;
+            input.blur();
+
+            const falta = max - atual;
+            if (falta <= 0) {
+                res.innerHTML = "<span style='color:var(--verde)'>CHEIO! ✅</span>";
+            } else {
+                const caixas = Math.floor(falta / cx);
+                const avulsos = falta % cx;
+                res.innerHTML = `<span style='color:var(--vermelho)'>PEGAR: ${caixas} CX e ${avulsos} UN</span>`;
             }
         }
+
         carregar(produtos);
     </script>
 </body>
