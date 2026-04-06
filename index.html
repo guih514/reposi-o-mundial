@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mundial Reposição</title>
+    <title>Mundial Reposição Pro</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#F58220">
     <style>
         :root { --laranja: #F58220; --azul: #005BAA; --verde: #39BC3E; --vermelho: #E12D2D; }
         body { font-family: sans-serif; background: #f0f2f5; margin: 0; padding: 10px; }
@@ -15,7 +16,7 @@
         .info { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
         .img-box { width: 80px; height: 80px; min-width: 80px; background: white; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
         .img-box img { max-width: 90%; max-height: 90%; object-fit: contain; }
-        .detalhes h3 { margin: 0; font-size: 14px; color: #111; text-transform: uppercase; }
+        .detalhes h3 { margin: 0; font-size: 14px; color: #111; text-transform: uppercase; line-height: 1.2; }
         .specs { font-size: 11px; color: #666; margin-top: 5px; font-weight: bold; }
         .calc-area { background: #fff9f4; padding: 10px; border-radius: 10px; border: 1px solid #ffe0b2; }
         .input-group { display: flex; gap: 8px; }
@@ -27,18 +28,25 @@
 <body>
     <div class="header">
         <h2 style="margin:0">🛒 Mundial Reposição</h2>
-        <small>Toque em OK após digitar a quantidade</small>
+        <small id="contador">A carregar lista...</small>
     </div>
-    <input type="text" id="busca" placeholder="🔍 Buscar produto..." onkeyup="filtrar()">
+    <div style="padding: 10px 0;">
+        <input type="text" id="busca" placeholder="🔍 Procurar produto ou marca..." onkeyup="filtrar()">
+    </div>
     <div id="lista"></div>
 
     <script>
-        // LISTA DE PRODUTOS (Com a Azeitona corrigida: 12 un)
         const produtos = [
+            // PRODUTOS ADICIONADOS PELAS FOTOS
+            { "nome": "Azeitonas Pretas sem Caroço VALE FÉRTIL 160g", "cx": 12, "max": 48, "img": "https://mundial-api.supermercadosmundial.com.br/products/044554/300x300.webp" },
+            { "nome": "Alcaparras VALE FÉRTIL Vidro 60g", "cx": 12, "max": 24, "img": "https://mundial-api.supermercadosmundial.com.br/products/060455/300x300.webp" },
+            
+            // LISTA ANTERIOR
             { "nome": "Azeitona Preta VALE FÉRTIL Azapa 360g", "cx": 12, "max": 48, "img": "https://mundial-api.supermercadosmundial.com.br/products/010317/300x300.webp" },
+            { "nome": "Grão-de-bico BONDUELLE Lata 265g", "cx": 24, "max": 48, "img": "https://mundial-api.supermercadosmundial.com.br/products/018504/300x300.webp" },
             { "nome": "ALHO TRITURADO OKKER 1KG", "cx": 6, "max": 18, "img": "https://mundial-api.supermercadosmundial.com.br/products/070359/300x300.webp" },
             { "nome": "ARROZ TIO MINGOTE BRANCO 5 KG", "cx": 6, "max": 60, "img": "https://mundial-api.supermercadosmundial.com.br/products/060864/300x300.webp" },
-            { "nome": "CEREAL SNOW FLAKES", "cx": 12, "max": 24, "img": "https://mundial-api.supermercadosmundial.com.br/products/070308/300x300.webp" },
+            { "nome": "CEREAL SNOW FLAKES NESTLÉ", "cx": 12, "max": 24, "img": "https://mundial-api.supermercadosmundial.com.br/products/070308/300x300.webp" },
             { "nome": "AZEITE DE DENDE CEPERA VD 200ML", "cx": 12, "max": 36, "img": "https://mundial-api.supermercadosmundial.com.br/products/069785/300x300.webp" },
             { "nome": "ÓLEO DE GIRASSOL SINHÁ 900ML", "cx": 20, "max": 100, "img": "https://mundial-api.supermercadosmundial.com.br/products/021893/300x300.webp" },
             { "nome": "AVEIA QUAKER FLOCOS FINOS 450G", "cx": 12, "max": 48, "img": "https://mundial-api.supermercadosmundial.com.br/products/062721/300x300.webp" },
@@ -51,11 +59,13 @@
         function carregar(itens) {
             const lista = document.getElementById('lista');
             lista.innerHTML = '';
+            document.getElementById('contador').innerText = `${itens.length} produtos carregados`;
+            
             itens.forEach(p => {
                 lista.innerHTML += `
                     <div class="produto-card">
                         <div class="info">
-                            <div class="img-box"><img src="${p.img}"></div>
+                            <div class="img-box"><img src="${p.img}" onerror="this.src='https://via.placeholder.com/80?text=Foto'"></div>
                             <div class="detalhes">
                                 <h3>${p.nome}</h3>
                                 <div class="specs">CX: ${p.cx} un | MAX: ${p.max} un</div>
@@ -74,7 +84,8 @@
 
         function filtrar() {
             const t = document.getElementById('busca').value.toLowerCase();
-            carregar(produtos.filter(p => p.nome.toLowerCase().includes(t)));
+            const filtrados = produtos.filter(p => p.nome.toLowerCase().includes(t));
+            carregar(filtrados);
         }
 
         function calc(nome, max, cx) {
@@ -94,7 +105,6 @@
             }
         }
 
-        // Inicia o app
         carregar(produtos);
     </script>
 </body>
