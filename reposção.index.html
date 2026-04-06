@@ -1,0 +1,156 @@
+const produtos = [
+  {
+    "nome": "Ícone Instagram",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://www.supermercadosmundial.com.br/images/icons/social-media/instagram.png"
+  },
+  {
+    "nome": "Ícone Facebook",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://www.supermercadosmundial.com.br/images/icons/social-media/facebook.png"
+  },
+  {
+    "nome": "Ícone YouTube",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://www.supermercadosmundial.com.br/images/icons/social-media/youtube.png"
+  },
+  {
+    "nome": "Icone usuário",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://www.supermercadosmundial.com.br/images/UserMenuMeuMundial.webp"
+  },
+  {
+    "nome": "ALHO TRITURADO OKKER 1KG",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/070359/300x300.webp"
+  },
+  {
+    "nome": "ARROZ TIO MINGOTE BRANCO 5 KG",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/060864/300x300.webp"
+  },
+  {
+    "nome": "CEREAL SNOW FLAKES",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/070308/300x300.webp"
+  },
+  {
+    "nome": "Azeitonas Pretas VALE FÉRTIL Vários Tipos 160g/200g",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/044554/300x300.webp"
+  },
+  {
+    "nome": "AZEITE DE DENDE CEPERA VD 200ML",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/069785/300x300.webp"
+  },
+  {
+    "nome": "ÓLEO DE GIRASSOL SINHÁ  900ML",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/021893/300x300.webp"
+  },
+  {
+    "nome": "AVEIA QUAKER FLOCOS FINOS 450G",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/062721/300x300.webp"
+  },
+  {
+    "nome": "Alcaparras VALE FÉRTIL  Vidro 60g",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/060455/300x300.webp"
+  },
+  {
+    "nome": "Maionese HEMMER Receita Caseira 500g",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/075035/300x300.webp"
+  },
+  {
+    "nome": "GRÃO-DE-BICO GRANFINO  500G",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/011848/300x300.webp"
+  },
+  {
+    "nome": "LENTILHA VAPZA 250G",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/059923/300x300.webp"
+  },
+  {
+    "nome": "Leite de Coco COPRA Tradicional 500ml",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/068474/300x300.webp"
+  },
+  {
+    "nome": "FEIJÃO VERMELHO D´NUVA  1 KG",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/065593/300x300.webp"
+  },
+  {
+    "nome": "LEITE COND.MOCA LATA 395G PR.ESPECIAL",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/071738/300x300.webp"
+  },
+  {
+    "nome": "ATUM RALADO COQUEIRO NATURAL/ÓLEO 170G",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/021370/300x300.webp"
+  },
+  {
+    "nome": "Lentilha GRANFINO  500g",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/011847/300x300.webp"
+  },
+  {
+    "nome": "Leite de Coco SOCOCO Tradicional 200ml",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/004665/300x300.webp"
+  },
+  {
+    "nome": "COCO RALADO SOCOCO TRADICIONAL/SWEET 100G",
+    "marca": "Mundial",
+    "quantidadeCaixa": 12,
+    "capacidadeGondola": 48,
+    "imagem": "https://mundial-api.supermercadosmundial.com.br/products/017304/300x300.webp"
+  }
+];
